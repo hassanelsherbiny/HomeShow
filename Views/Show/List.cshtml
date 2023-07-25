@@ -1,0 +1,53 @@
+﻿@model List<HomeShow.Models.ShowModel>
+@{
+    ViewBag.Title = "";
+}
+@*<div class="row hidden">
+        <div class="col-lg-12">
+            <a href="/">
+                <h2>
+                    <i class="glyphicon glyphicon-arrow-left"></i> رجوع
+                </h2>
+            </a>
+        </div>
+    </div>*@
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3 text-center card" style="padding:0" draggable="false">
+            <a draggable="false" href="/Show/details/@ViewBag.Id/?ShowName=@item.Name">
+                <div draggable="false" class="poster" style="position: relative;background:url('@item.ImagePath') no-repeat center;background-size: cover;  ">
+                    <span draggable="false" style="position: absolute;top: 50%;height: 0;opacity: 0;display: block;">@item.Name</span>
+                </div>
+                @*<img src="@item.ImagePath" onerror="if (this.src != '/content/img/seriesNoLogo.jpg') this.src = '/content/img/seriesNoLogo.jpg';" class="img-responsive" />*@
+                @*<h1>@item.Name</h1>
+                    <hr />*@
+            </a>
+        </div>
+    }
+
+</div>
+@*@Html.Raw(ViewBag.str)*@
+<style>
+    .card {
+        height: 40em;
+        /*margin-bottom: 20px;*/
+    }
+
+        .card:hover {
+            transform: scale(0.97);
+            transition-timing-function: ease;
+            transition-duration: 1s;
+        }
+
+        .card .poster {
+            height: 100%;
+            color: transparent;
+            background-size: cover !important;
+        }
+
+        .card img {
+            margin: auto;
+            height: 30em;
+        }
+</style>

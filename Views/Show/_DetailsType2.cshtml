@@ -1,0 +1,69 @@
+﻿@model HomeShow.Models.ShowModel
+
+<div class="row">
+    @*<div class="col-md-12">
+            <h2>
+                <a href="/">
+                    <i class="glyphicon glyphicon-arrow-left"></i>
+                    رجوع
+                </a>
+            </h2>
+        </div>*@
+    <div class="col-md-12">
+        <div id="VideoHolder">
+
+        </div>
+    </div>
+    @{
+        var lastGroup = "";
+    }
+    @for (int i = 0; i < Model.Episodes.Count; i++)
+    {
+        var item = Model.Episodes[i];
+        //var itemLogo = System.IO.Path.ChangeExtension(item.src, "jpg");
+        var itemLogo = System.IO.Path.GetDirectoryName(item.src).Replace("\\", "/") + "/Banners/" + System.IO.Path.GetFileNameWithoutExtension(item.src) + ".jpg";
+        if (lastGroup != item.Group && Model.ShowType != 1)
+        {
+            if (lastGroup != "")
+            {<div class="clearfix"></div>}
+            lastGroup = item.Group;
+            <h2 style="text-align:right">@item.Group</h2>
+            <hr />
+
+        }
+        <div class="col-md-3 card text-center" style="padding:0">
+            <div onclick="PlayShow('@i')" style="height:100%">
+                @*<img src="@itemLogo" onerror="if (this.src != '/content/img/MovieNoLogo.png') this.src = '/content/img/MovieNoLogo.png';" class="img-responsive" />*@
+                <div class="poster" style="background:url('@itemLogo') ;">
+                    @item.title
+                </div>
+
+                @*<h1>
+                        @item.title
+                    </h1>    <hr />*@
+            </div>
+        </div>
+    }
+
+</div>
+<style>
+    .card {
+        height: 40em;
+        /*margin-bottom: 20px;*/
+    }
+
+        .card .poster {
+            height: 100%;
+            color: transparent;
+            background-size: cover !important;
+        }
+
+        .card img {
+            margin: auto;
+            height: 20em;
+        }
+
+    h1 {
+        word-break: break-all;
+    }
+</style>

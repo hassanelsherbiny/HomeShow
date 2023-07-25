@@ -1,0 +1,42 @@
+﻿[
+  {
+    "KeyCode": 55,
+    "Action": "SeekBackward10"
+  },
+  {
+    "KeyCode": 57,
+    "Action": "SeekForward10"
+  },
+  {
+    "KeyCode": 37,
+    "Action": "SeekBackward10"
+  },
+  {
+    "KeyCode": 39,
+    "Action": "SeekForward10"
+  },
+  {
+    "KeyCode": 51,
+    "Action": "SkipForward"
+  },
+  {
+    "KeyCode": 49,
+    "Action": "SkipBackward"
+  },
+  {
+    "KeyCode": 54,
+    "Action": "Next"
+  },
+  {
+    "KeyCode": 52,
+    "Action": "Previous"
+  },
+  {
+    "KeyCode": 53,
+    "Action": "PlayPause"
+  },
+  {
+    "KeyCode": 48,
+    "Action": "Zero"
+  }
+]

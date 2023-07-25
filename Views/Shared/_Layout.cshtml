@@ -1,0 +1,91 @@
+﻿@{ 
+    var OrderBy = (ViewBag.OrderBy ?? 1) + "";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Show - @ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @*@Scripts.Render("~/bundles/modernizr")*@
+</head>
+<body>
+
+    <div class="container-fluid body-content">
+        @RenderBody()
+        <div class="sidenav">
+            <a href="#" class="block">
+                <img src="~/Content/setting.png" />
+            </a>
+            <a href="/" class="block">
+                <img src="~/Content/home.png" width="64" />
+            </a>
+            <a href="@Extensions.Modify(Request,"OrderBy",OrderBy)" class="block">
+                <img src="~/Content/sort.png" />
+            </a>
+        </div>
+    </div>
+
+    @*@Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)*@
+    <style>
+        .img-responsive {
+            margin: auto;
+        }
+
+        body {
+            background: black;
+        }
+
+        .mejs__container.mejs__video {
+            margin-bottom: 25px;
+        }
+
+        .container-fluid {
+            padding-top: 15px;
+        }
+
+        .sidenav {
+            position: fixed; /* Position them relative to the browser window */
+            /*left: -86px;*/ /* Position them outside of the screen */
+            left: -100px; /* Position them outside of the screen */
+            transition: 0.3s; /* Add transition on hover */
+            padding: 15px 0px 15px 5px; /* 15px padding */
+            width: 100px; /* Set a specific width */
+            text-decoration: none; /* Remove underline */
+            font-size: 20px; /* Increase font size */
+            color: white; /* White text color */
+            border-radius: 0 25px 25px 0; /* Rounded corners on the top right and bottom right side */
+        }
+
+            .sidenav:after {
+                content: '';
+                width: 107px;
+                height: 60px;
+                display: block;
+                background: #d1d0d0;
+                top: 37%;
+                position: absolute;
+                border-radius: 15px;
+                z-index: -1;
+            }
+
+            .sidenav .navItem {
+                transition: 0.3s; /* Add transition on hover */
+            }
+
+            .sidenav:hover {
+                left: 0; /* On mouse-over, make the elements appear as they should */
+            }
+        /* The about link: 20px from the top with a green background */
+        .sidenav {
+            top: 35%;
+            z-index: 99;
+            background-color: #d1d0d0;
+        }
+    </style>
+</body>
+
+</html>

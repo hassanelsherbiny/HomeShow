@@ -1,0 +1,65 @@
+﻿@model List<HomeShow.Models.Mapping>
+@{
+    ViewBag.Title = "";
+}
+
+<div class="row" style="margin-top: 10vh;padding-top:5vh">
+    @foreach (var item in Model)
+    {
+        var Lnk = item.MapType == HomeShow.Models.MapType.EpContainer ? "/show/list/" + item.Id : "/Show/details/" + item.Id + "/?ShowType=1";
+        <div class="col card text-center">
+            <a href="@Lnk" draggable="false">
+                @*<div class="poster" style="background:url('@item.ImagePath') ;"></div>*@
+                <img class="img-responsive" src="@item.ImagePath" draggable="false" />
+
+            </a>
+        </div>
+    }
+</div>
+<style>
+    .card:hover {
+        margin-top: -5vh;
+        transition-timing-function: ease;
+        transition-duration: 1s;
+    }
+
+    .card {
+        height: 70vh;
+        margin-bottom: 45px;
+        transform: skew(350deg);
+        padding: 0px;
+    }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .card .poster {
+            height: 100%;
+            background-size: cover !important;
+        }
+
+    .col {
+        flex-basis: 0;
+        -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        max-width: 100%;
+    }
+
+    .row {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        margin-right: 0;
+        margin-left: 0;
+        overflow-x: hidden;
+    }
+
+    .sidenav {
+        display: none;
+    }
+</style>

@@ -1,0 +1,46 @@
+﻿[
+  {
+    "Id": "Series",
+    "Path": "/Series/",
+    "Name": "مسلسلات",
+    "ImagePath": "/content/img/Series.jpg",
+    "MapTypeId": "0"
+  },
+  {
+    "Id": "Movies",
+    "Path": "/ArMovies/",
+    "Name": "افلام عربي",
+    "ImagePath": "/content/img/Movies.jpg",
+    "MapTypeId": "1"
+  },
+  {
+    "Id": "Ramadan",
+    "Path": "/Ramadan/",
+    "Name": "رمضان",
+    "ImagePath": "/content/img/Ramadan.jpg",
+    "MapTypeId": "0"
+  },
+  {
+    "Id": "Mix",
+    "Path": "/Mix/",
+    "Name": "منوعات",
+    "ImagePath": "/content/img/Mix.jpg",
+    "MapTypeId": "0"
+  },
+  {
+    "Id": "EnMovies",
+    "Path": "/Movies/",
+    "Name": "Movies",
+    "ImagePath": "/content/img/MoviesEn.jpg",
+    "MapTypeId": "1"
+
+  },
+  {
+    "Id": "EnSeries",
+    "Path": "/EnSeries/",
+    "Name": "Series",
+    "ImagePath": "/content/img/SeriesEn.jpg",
+    "MapTypeId": "0"
+
+  }
+]

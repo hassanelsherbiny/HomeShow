@@ -1,0 +1,283 @@
+﻿@model HomeShow.Models.ShowModel
+@{
+    ViewBag.Title = Model.Name;
+    var lastGroup = "";
+}
+<script src="~/jquery.js"></script>
+<link href="~/mediaelement/mediaelementplayer.min.css" rel="stylesheet" />
+<script src="~/mediaelement/mediaelement-and-player.min.js"></script>
+<link href="~/mediaelement/playlist/playlist.css" rel="stylesheet" />
+<script src="~/mediaelement/playlist/playlist.js"></script>
+<script src="~/platform.js"></script>
+@if (Model.ShowType == 0)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div id="VideoHolder">
+
+            </div>
+        </div>
+        <div class="col-md-4 text-center">
+            <img src="@Model.ImagePath" style="width:100%;height:80vh" class="img-responsive" onerror="if (this.src != '/content/img/SeriesEn.jpg') this.src = '/content/img/SeriesEn.jpg';" />
+        </div>
+        @for (int i = 0; i < Model.Episodes.Count; i++)
+        {
+            var item = Model.Episodes[i];
+            if (lastGroup != item.Group)
+            {
+                if (lastGroup != "")
+                {<div class="clearfix"></div>}
+                lastGroup = item.Group;
+                <h2 style="text-align:center;color:white">@item.Group</h2>
+                <hr />
+            }
+            <div draggable="false" class="col-md-2 ">
+                <div draggable="false" class="box" id="Ep_@i" onclick="PlayShow('@i')">
+                    <span draggable="false" class="epNum">
+                        @item.title
+                    </span>
+
+                </div>
+            </div>
+        }
+
+    </div>
+}
+else
+{
+    @Html.Partial("_DetailsType2")
+}
+<style>
+    .navbar {
+        display: none;
+    }
+
+    .epNum {
+        transform: skew(20deg);
+    }
+
+    * {
+        -webkit-user-select: none; /* Safari */
+        -ms-user-select: none; /* IE 10 and IE 11 */
+        user-select: none; /* Standard syntax */
+    }
+
+    .box {
+        font-size: 65px;
+        text-align: center;
+        transform: skew(340deg);
+        background-color: #ffffff;
+        /*border-radius: 10px;*/
+        box-shadow: 0 0px 22px -10px rgb(0 0 0 / 30%);
+        transition-property: transform, box-shadow, -webkit-transform, -webkit-box-shadow;
+        transition-duration: 0.3s, 0.3s;
+        transition-timing-function: ease-out, ease-out;
+        transition-delay: 0s, 0s;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        height: 100px;
+        padding: .8rem;
+        margin-bottom: 25px;
+        cursor: pointer;
+    }
+
+    .row {
+        overflow-x: hidden;
+    }
+
+    .box.active {
+        background: #e5c74a;
+        color: black;
+    }
+
+    .mejs__overlay.mejs__layer.mejs__overlay-play {
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    .mejs_title {
+        color: white;
+        text-align: center;
+        padding-left: 30px;
+        top: -10px;
+        position: absolute;
+    }
+
+    .mejs__container:not(.mejs__container-fullscreen), .mejs__container:not(.mejs__container-fullscreen) #myvideo_html5 {
+        width: 100% !important;
+        height: 70vh !important;
+    }
+
+    .mejs__playlist-button, .mejs__volume-button {
+        display: none;
+    }
+
+    .mejs__fullscreen *:not(.mejs__controls) {
+        cursor: none;
+    }
+
+    .mejs__fullscreen .mejs__controls * {
+        cursor: pointer;
+    }
+
+    .mejs__overlay-play .mejs__controls {
+        opacity: 1 !important;
+    }
+</style>
+<script>
+    var playlistLst = JSON.parse('@Html.Raw(Json.Encode( Model.Episodes))');
+    var player;
+    var keyMap = [];
+    function PlayShow(i) {
+            $("#csSeek").hide();
+            var videoElment = '<video id="myvideo" autoplay="autoplay" fullscreen controls="controls"></video>';
+            $("#VideoHolder").html(videoElment);
+            //$("#myvideo").attr("src", path);
+            player = new MediaElementPlayer('myvideo', {
+                playlist: playlistLst,
+                loop: false, startVolume: 1,
+                features: ['playlistfeature', 'prevtrack', 'playpause', 'nexttrack', 'current', 'progress', 'duration', 'playlist', 'volume', 'fullscreen'],
+                success: function (m, e, p) {
+                    var elem = document.getElementById('VideoHolder');
+                    requestFullScreen(elem);
+                    p.enterFullScreen();
+                },
+                defaultSeekBackwardInterval: function () {
+                    return 10;
+                },
+                defaultSeekForwardInterval: function (media) {
+                    if (media.getCurrentTime() + 10 >= media.duration) {
+                        var next = parseInt(player.currentPlaylistItem) + 1;
+                        player.playOnPlayList(next);
+                        return 0;
+                    }
+                    return 10;
+                }
+            });
+            document.getElementById("myvideo").addEventListener('playing', function (e) {
+                $("#CurrentFileTitle").html(player.playlist[player.currentPlaylistItem].title);
+                $(".mejs__time-slider").focus();
+                $('.mejs__controls').hide();
+                setCookie('Show_@Model.Name', player.currentPlaylistItem);
+                $(".active").removeClass("active");
+                $("#Ep_" + player.currentPlaylistItem).addClass('active');
+                $(".mejs__container").contextmenu(function (e) { $(".mejs__button.mejs__fullscreen-button.mejs__unfullscreen").click(); return false; });
+            });
+            $(".mejs__controls").prepend('<div class="mejs_title" id="CurrentFileTitle"></div>');
+            player.playOnPlayList(i);
+            player.play();
+            $(".mejs__controls").addClass('mejs__offscreen');
+
+            var el = document.getElementById('VideoHolder');
+            $(el).bind('webkitfullscreenchange mozfullscreenchange fullscreenchange', function (e) {
+                var fullScreen = document.fullScreen || document.mozFullScreen || document.webkitIsFullScreen;
+                if (!fullScreen) {
+                    player.pause();
+                }
+            });
+
+            navigator.mediaSession.metadata = new MediaMetadata({
+                artwork: [
+                    { src: '@(Model.ImagePath)', type: 'image/png' },
+                ]
+            });
+            navigator.mediaSession.setActionHandler('previoustrack', function () {
+                $(".mejs__prev-button").click();
+            });
+            navigator.mediaSession.setActionHandler('nexttrack', function () {
+                $(".mejs__next-button").click();
+            });
+        }
+    $(document).ready(function () {
+        var Ep = getCookie('Show_@Model.Name');
+        $("#Ep_" + Ep).addClass('active');
+        if ($("#Ep_" + Ep).length > 0) {
+            $([document.documentElement, document.body]).animate({
+                scrollTop: $("#Ep_" + Ep).offset().top
+            }, 500);
+        }
+        var keyMapName = platform.os.family=='Windows'?'Web.json':'Tv.json';
+         $.ajax({
+             url: "/KeyboardMapping/"+keyMapName,
+                type: "Get",
+                datatype: "json",
+                success: function (result) {
+                    keyMap = result;
+                }
+            });
+    });
+    function requestFullScreen(element) {
+        // Supports most browsers and their versions.
+        var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
+
+        if (requestMethod) { // Native full screen.
+            requestMethod.call(element);
+        } else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
+            var wscript = new ActiveXObject("WScript.Shell");
+            if (wscript !== null) {
+                wscript.SendKeys("{F11}");
+            }
+        }
+    }
+
+    $('body').keydown(function (e) {
+        var Action = GetAction(e.keyCode);
+        switch (Action) {
+            case "SeekBackward10":
+                player.media.setCurrentTime(player.media.currentTime - 10);
+                break;
+            case "SeekForward10":
+                player.media.setCurrentTime(player.media.currentTime + 10);
+                break;
+            case "Previous":
+                $(".mejs__prev-button").click();
+                break;
+            case "Next":
+                $(".mejs__next-button").click();
+                break;
+            case "SkipForward":
+                player.media.setCurrentTime(player.media.currentTime + (2.5 * 60));
+                break;
+            case "SkipBackward":
+                player.media.setCurrentTime(player.media.currentTime - (2.5 * 60));
+                break;
+            case "PlayPause":
+                $(".mejs__playpause-button").click();
+                break;
+            case "Zero":
+                player.media.setCurrentTime(0);
+                break;
+            default:
+        }
+    });
+    function GetAction(KeyCode) {
+        for (var i = 0; i < keyMap.length; i++) {
+            if (keyMap[i].KeyCode == KeyCode)
+                return keyMap[i].Action;
+        }
+        return "";
+    }
+    function setCookie(cname, cvalue) {
+        var d = new Date();
+        d.setTime(d.getTime() + (1000 * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        var domainName = window.location.hostname;
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/;domain=" + domainName;
+    }
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+</script>

@@ -1,0 +1,20 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <div id="pnl"></div>
+    <script>
+        $().ready(function () {
+            $.ajax({
+                url: "http://192.168.1.10:1111",
+                type: "Get",
+                datatype: "html",
+                success: function (result) {
+                    $("#pnl").html(result);
+                }
+            });
+        })</script>
+</body>
+</html>
