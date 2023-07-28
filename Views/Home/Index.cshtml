@@ -7,7 +7,7 @@
     @foreach (var item in Model)
     {
         var Lnk = item.MapType == HomeShow.Models.MapType.EpContainer ? "/show/list/" + item.Id : "/Show/details/" + item.Id + "/?ShowType=1";
-        <div class="col card text-center">
+        <div class="col col-sm-6 col-xs-12 card text-center">
             <a href="@Lnk" draggable="false">
                 @*<div class="poster" style="background:url('@item.ImagePath') ;"></div>*@
                 <img class="img-responsive" src="@item.ImagePath" draggable="false" />
@@ -21,6 +21,15 @@
         margin-top: -5vh;
         transition-timing-function: ease;
         transition-duration: 1s;
+    }
+
+    @@media only screen and (max-width: 1000px) {
+        .col-sm-6, .col-xs-12 {
+            flex-basis: unset !important;
+        }
+        .card {
+            transform: skew(0) !important;
+        }
     }
 
     .card {
