@@ -1,0 +1,125 @@
+<div id="content">
+    <div class="inbox-nav-bar no-content-padding">
+
+        <h1 class="page-title txt-color-blueDark hidden-tablet"><i class="fa fa-fw fa-inbox"></i> Inbox </h1>
+
+        <div class="btn-group visible-tablet" data-dropdown>
+            <button class="btn btn-default dropdown-toggle">
+                {{selectedFolder.name}} <i class="fa fa-caret-down"></i>
+            </button>
+            <ul class="dropdown-menu pull-left">
+                <li ui-sref-active="active" ng-repeat="folder in config.folders">
+                    <a ui-sref="app.inbox.folder({folder: folder.key})">{{folder.name}} <i
+                            ng-if="selectedFolder==folder" class="fa fa-check"></i></a>
+                </li>
+            </ul>
+
+        </div>
+
+        <div class="inbox-checkbox-triggered">
+
+            <div class="btn-group">
+                <a tooltip-placement="bottom"
+                   tooltip="Mark Important" class="btn btn-default"><strong><i
+                        class="fa fa-exclamation fa-lg text-danger"></i></strong></a>
+                <a tooltip-placement="bottom"
+                   tooltip="Move to folder" class="btn btn-default"><strong><i
+                        class="fa fa-folder-open fa-lg"></i></strong></a>
+                <a ng-click="deleteSelected()" tooltip-placement="bottom"
+                   tooltip="Delete" class="deletebutton btn btn-default"><strong><i
+                        class="fa fa-trash-o fa-lg"></i></strong></a>
+            </div>
+
+        </div>
+
+        <a id="compose-mail-mini"
+           class="btn btn-primary pull-right hidden-desktop visible-tablet"> <strong><i
+                class="fa fa-file fa-lg"></i></strong> </a>
+
+        <div class="btn-group pull-right inbox-paging">
+            <a class="btn btn-default btn-sm"><strong><i
+                    class="fa fa-chevron-left"></i></strong></a>
+            <a class="btn btn-default btn-sm"><strong><i
+                    class="fa fa-chevron-right"></i></strong></a>
+        </div>
+        <span class="pull-right"><strong>1-30</strong> of <strong>{{selectedFolder.total}}</strong></span>
+
+    </div>
+
+    <div id="inbox-content" class="inbox-body no-content-padding">
+
+        <div class="inbox-side-bar">
+
+            <a ui-sref="app.inbox.folder.compose" id="compose-mail" class="btn btn-primary btn-block">
+                <strong>Compose</strong> </a>
+
+            <h6> Folder <a tooltip="Refresh" tooltip-placement="right" class="pull-right txt-color-darken"><i
+                    class="fa fa-refresh"></i></a></h6>
+
+            <ul class="inbox-menu-lg">
+                <li ui-sref-active="active" ng-repeat="folder in config.folders">
+                    <a ui-sref="app.inbox.folder({folder: folder.key})"> {{folder.name}} <span ng-if="folder.unread">({{folder.unread}})</span>
+                    </a>
+                </li>
+            </ul>
+
+            <h6> Quick Access <a tooltip-placement="right"
+                                 data-tooltip="Add Another" class="pull-right txt-color-darken"><i
+                    class="fa fa-plus"></i></a></h6>
+
+            <ul class="inbox-menu-sm">
+                <li ng-repeat="label in config.labels">
+                    <a>{{label.name}} ({{label.total}})</a>
+                </li>
+            </ul>
+
+            <div class="air air-bottom inbox-space">
+
+                {{config.space.free}} of <strong>{{config.space.total}}</strong><a data-tooltip="Empty Spam"
+                                                                                   data-tooltip-placement="top"
+                                                                                   class="pull-right txt-color-darken"><i
+                    class="fa fa-trash-o fa-lg"></i></a>
+
+                <div data-progressbar class="progress-micro" data-value="config.space.ratio"></div>
+
+            </div>
+
+        </div>
+
+        <div class="inbox-animation-container"
+             data-smart-router-animation-wrap="inbox inbox@app.inbox"
+             data-wrap-for="#inbox-content .table-wrap">
+            <div ui-view="inbox"
+                 data-smart-fit-app-view="#inbox-content .table-wrap"
+                 data-leading-y="95"></div>
+        </div>
+
+
+        <div class="inbox-footer">
+
+            <div class="row">
+
+                <div class="col-xs-6 col-sm-1">
+
+                    <div class="txt-color-white hidden-desktop visible-mobile">
+                        {{config.space.free}} of <strong>{{config.space.total}}</strong>
+
+                        <div data-progressbar class="progress-micro" data-value="config.space.ratio"></div>
+                    </div>
+                </div>
+
+                <div class="col-xs-6 col-sm-11 text-right">
+                    <div class="txt-color-white inline-block">
+                        <i class="txt-color-blueLight hidden-mobile">Last account activity <i
+                                class="fa fa-clock-o"></i> 52 mins ago |</i> Displaying <strong>44 of 259</strong>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
