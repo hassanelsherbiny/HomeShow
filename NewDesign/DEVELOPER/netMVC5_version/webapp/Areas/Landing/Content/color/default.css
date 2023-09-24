@@ -1,0 +1,40 @@
+
+a, .tp-caption a.btn:hover {
+    color: inherit;
+}
+
+.top-nav-collapse {
+    background: inherit;
+}
+
+.navbar-custom ul.nav ul.dropdown-menu li a:hover {
+    color: inherit;
+}
+
+.owl-theme .owl-controls .owl-page.active span,
+.owl-theme .owl-controls.clickable .owl-page:hover span {
+    background-color: inherit;
+}
+
+.widget-avatar .avatar:hover {
+    border: 5px solid;
+    border-color: inherit;
+}
+
+.bg-skin {
+    background: inherit;
+}
+
+form#contact-form input:focus, form#contact-form select:focus, form#contact-form textarea:focus {
+    border-color: inherit;
+}
+
+footer {
+}
+
+
+.btn-skin {
+    color: inherit;
+    background-color: inherit;
+    border-color: inherit;
+}
