@@ -1,0 +1,60 @@
+<div id="todo-widget" jarvis-widget data-widget-editbutton="false" data-widget-color="blue"
+     ng-controller="TodoCtrl">
+    <header>
+        <span class="widget-icon"> <i class="fa fa-check txt-color-white"></i> </span>
+
+        <h2> ToDo's </h2>
+
+        <div class="widget-toolbar">
+            <!-- add: non-hidden - to disable auto hide -->
+            <button class="btn btn-xs btn-default" ng-class="{active: newTodo}" ng-click="toggleAdd()"><i ng-class="{ 'fa fa-plus': !newTodo, 'fa fa-times': newTodo}"></i> Add</button>
+
+        </div>
+    </header>
+    <!-- widget div-->
+    <div>
+        <div class="widget-body no-padding smart-form">
+            <!-- content goes here -->
+            <div ng-show="newTodo">
+                <h5 class="todo-group-title"><i class="fa fa-plus-circle"></i> New Todo</h5>
+
+                <form name="newTodoForm" class="smart-form">
+                    <fieldset>
+                        <section>
+                            <label class="input">
+                                <input type="text" required class="input-lg" ng-model="newTodo.title"
+                                       placeholder="What needs to be done?">
+                            </label>
+                        </section>
+                        <section>
+                            <div class="col-xs-6">
+                                <label class="select">
+                                    <select class="input-sm" ng-model="newTodo.state"
+                                            ng-options="state as state for state in states"></select> <i></i> </label>
+                            </div>
+                        </section>
+                    </fieldset>
+                    <footer>
+                        <button ng-disabled="newTodoForm.$invalid" type="button" class="btn btn-primary"
+                                ng-click="createTodo()">
+                            Add
+                        </button>
+                        <button type="button" class="btn btn-default" ng-click="toggleAdd()">
+                            Cancel
+                        </button>
+                    </footer>
+                </form>
+            </div>
+
+            <todo-list state="Critical"  title="Critical Tasks" icon="warning"></todo-list>
+
+            <todo-list state="Important" title="Important Tasks" icon="exclamation"></todo-list>
+
+            <todo-list state="Completed" title="Completed Tasks" icon="check"></todo-list>
+
+            <!-- end content -->
+        </div>
+
+    </div>
+    <!-- end widget div -->
+</div>
