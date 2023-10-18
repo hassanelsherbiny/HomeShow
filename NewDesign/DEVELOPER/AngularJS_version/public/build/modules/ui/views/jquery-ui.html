@@ -1,0 +1,408 @@
+<div id="content">
+<div class="row">
+    <big-breadcrumbs items="['UI Elements', 'JQuery UI']" icon="desktop"
+                     class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></big-breadcrumbs>
+    <div smart-include="build/layout/partials/sub-header.tpl.html"></div>
+</div>
+
+
+<!-- row -->
+<div class="row">
+
+<div class="col-sm-6 col-md-6 col-lg-6">
+
+    <div class="well well-sm well-light">
+        <h3>Dialogue</h3>
+        <a href="#" data-smart-jqui-dialog-launcher="#dialog_simple" class="btn btn-info"> Open Dialog </a>
+        &nbsp;
+        <a href="#" data-smart-jqui-dialog-launcher="#dialog-message" class="btn bg-color-purple txt-color-white"> Open Modal Dialog </a>
+    </div>
+
+    <div class="well well-sm well-light">
+        <h3>Jquery Tabs
+            <br>
+            <small>Simple Tabs</small>
+        </h3>
+
+        <div id="tabs" data-smart-jqui-tabs>
+            <ul>
+                <li>
+                    <a href="#tabs-a">First</a>
+                </li>
+                <li>
+                    <a href="#tabs-b">Second</a>
+                </li>
+                <li>
+                    <a href="#tabs-c">Third</a>
+                </li>
+            </ul>
+            <div id="tabs-a">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    aliquip ex ea commodo consequat.
+                </p>
+            </div>
+            <div id="tabs-b">
+                <p>
+                    Phasellus mattis tincidunt nibh. Cras orci urna, blandit id, pretium vel, aliquet ornare, felis.
+                    Maecenas scelerisque sem non nisl. Fusce sed lorem in enim dictum bibendum.
+                </p>
+            </div>
+            <div id="tabs-c">
+                <p>
+                    Nam dui erat, auctor a, dignissim quis, sollicitudin eu, felis. Pellentesque nisi urna, interdum
+                    eget, sagittis et, consequat vestibulum, lacus. Mauris porttitor ullamcorper augue.
+                </p>
+            </div>
+        </div>
+
+        <hr class="simple">
+        <h3>Dynamic Tabs
+            <br>
+            <small>Click button to add another tab</small>
+        </h3>
+
+        <p>
+            <button id="add_tab" class="btn btn-primary">
+                Add Tab
+            </button>
+        </p>
+
+        <div id="tabs2" smart-jqui-dynamic-tabs>
+            <ul>
+                <li>
+                    <a href="#tabs-1">Nunc tincidunt</a>
+                </li>
+            </ul>
+            <div id="tabs-1">
+                <p>
+                    Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec
+                    sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem.
+                    Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula
+                    eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam
+                    molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum.
+                    Phasellus ipsum. Nunc tristique tempus lectus.
+                </p>
+            </div>
+        </div>
+
+        <!-- Demo -->
+        <div id="addtab" title="<div class='widget-header'><h4><i class='fa fa-plus'></i> Add another tab</h4></div>">
+
+            <form>
+
+                <fieldset>
+                    <input name="authenticity_token" type="hidden">
+
+                    <div class="form-group">
+                        <label>Tab Title</label>
+                        <input class="form-control" id="tab_title" value="" placeholder="Text field" type="text">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Content</label>
+                        <textarea class="form-control" name="tab_content" id="tab_content" placeholder="Tab Content"
+                                  rows="3"></textarea>
+                    </div>
+
+                </fieldset>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <div class="well well-sm well-light">
+        <h3>Slider
+            <br>
+            <small>Horizontal Slider with tooltip</small>
+        </h3>
+
+        <input data-smart-uislider type="text" class="slider slider-primary" id="g1" value=""
+               data-slider-max="500"
+               data-slider-value="185"
+               data-slider-selection="before"
+               data-slider-handle="round">
+
+        <input data-smart-uislider type="text" class="slider slider-success" id="g2" value=""
+               data-slider-max="1000"
+               data-slider-step="1"
+               data-slider-value="[150,760]"
+               data-slider-handle="squar">
+
+
+        <h3>Usage
+            <small>Its so simple...</small>
+        </h3>
+				<pre>
+<code><strong>&lt;input class="slider slider-primary" data-slider-min="10" .. /></strong></code>
+
+data-slider-min="10"       <span class="text-muted"> // slider min value</span>
+data-slider-max="500"      <span class="text-muted"> // slider max value</span>
+data-slider-value="315"    <span class="text-muted"> // handler position on slider</span>
+data-slider-handle="round" <span class="text-muted"> // round or square</span> </pre>
+
+
+    </div>
+
+    <div class="well well-sm well-light">
+        <h3>Spinner</h3>
+
+        <div class="row">
+
+            <div class="col-sm-6 col-md-6 col-lg-6">
+
+                <div class="form-group">
+                    <label>Spinner Right</label>
+                    <input class="form-control" name="spinner-decimal" value="7.99" smart-spinner="decimal">
+                </div>
+
+            </div>
+
+            <div class="col-sm-6 col-md-6 col-lg-6">
+
+                <div class="form-group">
+                    <label>Spinner Left</label>
+                    <input class="form-control spinner-left" name="spinner" value="1" type="text" smart-spinner>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="col-sm-6 col-md-6 col-lg-6">
+
+    <div class="well well-sm well-light">
+
+        <h3>Menu <br>
+            <small>Easy Menu List</small>
+        </h3>
+
+        <ul id="menu" data-smart-jqui-menu>
+            <li>
+                <a href-void class="ui-state-disabled">Aberdeen (disabled)</a>
+            </li>
+            <li>
+                <a href-void>Ada</a>
+            </li>
+            <li>
+                <a href-void>Adamsville</a>
+            </li>
+            <li>
+                <a href-void>Addyston</a>
+            </li>
+            <li>
+                <a href-void>Delphi</a>
+                <ul>
+                    <li>
+                        <a href-void>Ada</a>
+                    </li>
+                    <li>
+                        <a href-void>Saarland</a>
+                    </li>
+                    <li>
+                        <a href-void>Salzburg</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href-void>Saarland</a>
+            </li>
+            <li>
+                <a href-void>Salzburg</a>
+                <ul>
+                    <li>
+                        <a href-void>Delphi</a>
+                        <ul>
+                            <li>
+                                <a href-void class="ui-state-disabled">Ada</a>
+                            </li>
+                            <li>
+                                <a href-void>Saarland</a>
+                            </li>
+                            <li>
+                                <a href-void>Salzburg</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="?Delphi">Delphi</a>
+                        <ul>
+                            <li>
+                                <a href-void>Ada</a>
+                            </li>
+                            <li>
+                                <a href-void>Saarland</a>
+                            </li>
+                            <li>
+                                <a href-void>Salzburg</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href-void>Perch</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+    </div>
+
+
+    <div class="well well-sm well-light">
+        <h3>Auto Complete
+            <br>
+            <small>Type something to reveal autocompelete tags</small>
+        </h3>
+
+        <input class="form-control" placeholder="Type something..." type="text"
+               data-smart-jqui-autocomplete
+               data-source='demoAutocompleteWords'>
+
+        <p class="note">
+            Usage: data-autocomplete= ' ["this", "message", "bold", "text"] '
+        </p>
+
+        <h3>Auto Complete Ajax
+            <br>
+            <small>Fetches data from JSON url</small>
+        </h3>
+
+        <input class="form-control" placeholder="City..." ng-model="demoAjaxAutocomplete" data-smart-jqui-ajax-autocomplete type="text" id="city">
+
+        <div id="log" class="font-xs margin-top-10 text-danger">
+            {{demoAjaxAutocomplete}}
+        </div>
+
+    </div>
+
+    <div class="well well-sm well-light">
+        <h3>Accordion
+            <br>
+            <small>With fontawesome icons</small>
+        </h3>
+        <div data-smart-jqui-accordion>
+            <div>
+                <h4>First</h4>
+
+                <div class="padding-10">
+                    Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec
+                    sollicitudin mi sit amet mauris.
+                    Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor
+                    risus. Aenean tempor ullamcorper leo.
+                    Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum.
+                    Aliquam nulla. Duis aliquam molestie erat.
+                    Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus
+                    ipsum. Nunc tristique tempus lectus.
+                </div>
+            </div>
+
+            <div>
+                <h4>Second</h4>
+
+                <div class="padding-10">
+                    Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec
+                    sollicitudin mi sit amet mauris.
+                    Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor
+                    risus. Aenean tempor ullamcorper leo.
+                    Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum.
+                    Aliquam nulla. Duis aliquam molestie erat.
+                    Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus
+                    ipsum. Nunc tristique tempus lectus.
+                </div>
+            </div>
+            <div>
+                <h4>Third</h4>
+
+                <div class="padding-10">
+                    Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec
+                    sollicitudin mi sit amet mauris.
+                    Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor
+                    risus. Aenean tempor ullamcorper leo.
+                    Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum.
+                    Aliquam nulla. Duis aliquam molestie erat.
+                    Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus
+                    ipsum. Nunc tristique tempus lectus.
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="well well-sm well-light">
+        <h3>Progress Bar
+            <br>
+            <small>Default progress bar.</small>
+        </h3>
+        <div class="bar-holder">
+            <div class="progress">
+                <div class="progress-bar" data-smart-progressbar data-transitiongoal="25"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</div>
+
+<!-- end row -->
+
+<!-- ui-dialog -->
+<div id="dialog_simple" data-smart-jqui-dialog data-modal="true">
+
+    <!-- dialog header // removing on compile-->
+    <div data-dialog-title>
+        <div class='widget-header'><h4><i class='fa fa-warning'></i> Empty the recycle bin?</h4></div>
+    </div>
+
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat.
+    </p>
+
+    <!-- dialog buttons // transform to jquery dialog buttons -->
+    <div data-dialog-buttons>
+        <button class="btn btn-danger" data-action="modalDemo1()"><i class='fa fa-trash-o'></i>&nbsp; Delete all items</button>
+        <button class="btn btn-default" data-action="modalDemo2()"><i class='fa fa-times'></i>&nbsp; Cancel</button>
+    </div>
+</div>
+
+
+<div id="dialog-message" data-smart-jqui-dialog data-resizable="true" data-modal="true">
+    <!-- dialog header // removing on compile-->
+    <div data-dialog-title>
+        <div class='widget-header'><h4><i class='icon-ok'></i> jQuery UI Dialog</h4></div>
+    </div>
+
+
+    <p>
+        This is the default dialog which is useful for displaying information. The dialog window can be moved, resized
+        and closed with the 'x' icon.
+    </p>
+
+    <div class="hr hr-12 hr-double"></div>
+
+
+    Currently using
+    <b>36% of your storage space</b>
+
+    <div class="progress progress-striped active no-margin">
+        <div class="progress-bar progress-primary" role="progressbar" style="width: 36%"></div>
+    </div>
+
+    <div data-dialog-buttons>
+        <button class="btn btn-defaultr" data-action="modalDemo1()">Cancel</button>
+        <button class="btn btn-primary" data-action="modalDemo2()"><i class='fa fa-check'></i>&nbsp; OK</button>
+    </div>
+
+</div>
+<!-- #dialog-message -->
+
+</div>
