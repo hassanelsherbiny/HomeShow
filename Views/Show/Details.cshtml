@@ -139,9 +139,13 @@ else
                 loop: false, startVolume: 1,
                 features: ['playlistfeature', 'prevtrack', 'playpause', 'nexttrack', 'current', 'progress', 'duration', 'playlist', 'volume', 'fullscreen'],
                 success: function (m, e, p) {
-                    var elem = document.getElementById('VideoHolder');
-                    requestFullScreen(elem);
-                    p.enterFullScreen();
+                    try {
+                        var elem = document.getElementById('VideoHolder');
+                        requestFullScreen(elem);
+                        p.enterFullScreen();
+                    }
+                     catch(e) {  
+                     }
                 },
                 defaultSeekBackwardInterval: function () {
                     return 10;
