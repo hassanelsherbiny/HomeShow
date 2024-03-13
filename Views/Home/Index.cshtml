@@ -17,7 +17,7 @@
     }
 </div>
 <style>
-    .card:hover {
+    .card:hover, .card.selected {
         margin-top: -5vh;
         transition-timing-function: ease;
         transition-duration: 1s;
@@ -27,6 +27,7 @@
         .col-sm-6, .col-xs-12 {
             flex-basis: unset !important;
         }
+
         .card {
             transform: skew(0) !important;
         }
@@ -71,4 +72,12 @@
     .sidenav {
         display: none;
     }
+
+    .selected {
+    }
 </style>
+<script>
+    $(document).ready(function () {
+        ArrowSelect('.card');
+    });
+</script>

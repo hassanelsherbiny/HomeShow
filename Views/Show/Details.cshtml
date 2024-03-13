@@ -3,7 +3,6 @@
     ViewBag.Title = Model.Name;
     var lastGroup = "";
 }
-<script src="~/jquery.js"></script>
 <link href="~/mediaelement/mediaelementplayer.min.css" rel="stylesheet" />
 <script src="~/mediaelement/mediaelement-and-player.min.js"></script>
 <link href="~/mediaelement/playlist/playlist.css" rel="stylesheet" />
@@ -124,6 +123,18 @@ else
     .mejs__overlay-play .mejs__controls {
         opacity: 1 !important;
     }
+    .box.selected:after {
+        content: ' ';
+        background: white;
+        width: 50px;
+        display: block;
+        height: 50px;
+        position: absolute;
+        top: 45%;
+        left: 45%;
+        border-radius: 50%;
+        border: 5px solid green;
+    }
 </style>
 <script>
     var playlistLst = JSON.parse('@Html.Raw(Json.Encode( Model.Episodes))');
@@ -194,6 +205,7 @@ else
             });
         }
     $(document).ready(function () {
+        ArrowSelect('.box');
         var Ep = getCookie('Show_@Model.Name');
         $("#Ep_" + Ep).addClass('active');
         if ($("#Ep_" + Ep).length > 0) {

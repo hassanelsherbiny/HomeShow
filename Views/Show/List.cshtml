@@ -34,7 +34,7 @@
         /*margin-bottom: 20px;*/
     }
 
-        .card:hover {
+        .card:hover, .card.selected {
             transform: scale(0.97);
             transition-timing-function: ease;
             transition-duration: 1s;
@@ -50,4 +50,21 @@
             margin: auto;
             height: 30em;
         }
+        .card.selected:after {
+            content: ' ';
+            background: white;
+            width: 50px;
+            display: block;
+            height: 50px;
+            position: absolute;
+            top: 45%;
+            left: 45%;
+            border-radius: 50%;
+            border: 5px solid green;
+        }
 </style>
+<script>
+    $(document).ready(function () {
+        ArrowSelect('.card');
+    });
+</script>

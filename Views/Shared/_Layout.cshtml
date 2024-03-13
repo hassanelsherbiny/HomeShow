@@ -1,4 +1,4 @@
-﻿@{ 
+﻿@{
     var OrderBy = (ViewBag.OrderBy ?? 1) + "";
 }
 <!DOCTYPE html>
@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Show - @ViewBag.Title</title>
     @Styles.Render("~/Content/css")
+    <script src="~/jquery.js"></script>
     @*@Scripts.Render("~/bundles/modernizr")*@
 </head>
 <body>
@@ -86,6 +87,44 @@
             background-color: #d1d0d0;
         }
     </style>
+    <script>
+        function ArrowSelect(selector) {
+            let selected = -1;
+            $(document).keyup(function (e) {
+                let rButtons = [417];
+                let lButtons = [412];
+                let selectButons = [13,19];
+                //alert(e.keyCode)
+                if (lButtons.indexOf(e.keyCode) > -1) {
+                    $(selector).removeClass('selected');
+                    selected--;
+                    if (selected <= -1) {
+                        selected = $(selector).length - 1;
+                    }
+                    $(selector).eq(selected).addClass('selected');
+                    $(".selected").get(0).scrollIntoView();
+                }
+                if (rButtons.indexOf(e.keyCode) > -1) {
+                    $(selector).removeClass('selected');
+                    selected++;
+                    if (selected >= $(selector).length) {
+                        selected = 0;
+                    }
+                    $(selector).eq(selected).addClass('selected');
+                    $(".selected").get(0).scrollIntoView();
+                }
+
+                if (selectButons.indexOf(e.keyCode) > -1) {
+                    let url = $(selector).eq(selected).find('a').attr('href');
+                    if (url)
+                        window.location.href = url;
+                    else
+                        $(selector).eq(selected).click();
+                }
+            });
+        }
+
+    </script>
 </body>
 
 </html>
