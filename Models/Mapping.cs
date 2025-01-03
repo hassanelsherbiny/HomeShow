@@ -14,6 +14,7 @@ namespace HomeShow.Models
         public string Name { get; set; }
         public string ImagePath { get; set; }
         public int MapTypeId { get; set; }
+        public bool Visible { get; set; }
         public MapType MapType { get { return (MapType)MapTypeId; } }
         public static List<Mapping> GetMappings()
         {

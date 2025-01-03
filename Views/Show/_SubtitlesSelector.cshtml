@@ -1,0 +1,69 @@
+﻿@model HomeShow.Models.SubTitleSyncModel
+<div id="SubtitlesForm">
+    <div class="" style="bottom: 0; right: 0; position: absolute; z-index: 99; ">
+        <button type="button" class="close" onclick="dimissSubtitleSelector()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="">
+            <select multiple class="form-control" id="SubtitlesSelector" style="height: 30vh;
+    background: transparent;
+    color: white;
+    overflow: hidden;
+    padding: 15px;
+    font-size: 15px;">
+                @for (int i = 0; i < Model.Subtitles.Count - 1; i++)
+                {
+                    var subtitle = Model.Subtitles[i];
+                    <option value="@(i+Model.StartIndex)" @if (i == Model.Index) { <text> selected="selected" </text> }>
+                         @subtitle.Text 
+                         @subtitle.End.ToString("hh\\:mm\\:ss") --  
+                         @subtitle.Start.ToString("hh\\:mm\\:ss") 
+                    </option>
+                }
+            </select>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        var $selector = $("#SubtitlesSelector");
+        $(document).on('keydown', function(e) {
+            var selectedIndex = $selector.prop('selectedIndex');
+            if (e.key === 'ArrowUp' && selectedIndex > 0) {
+                $selector.prop('selectedIndex', selectedIndex - 1);
+                e.preventDefault();
+            } else if (e.key === 'ArrowDown' && selectedIndex < $selector.children('option').length - 1) {
+                $selector.prop('selectedIndex', selectedIndex + 1);
+                e.preventDefault();
+            } else if (e.key === 'ArrowDown' && selectedIndex < $selector.children('option').length - 1) {
+                $selector.prop('selectedIndex', selectedIndex + 1);
+                e.preventDefault();
+            }
+            else if (e.key == "Enter") {
+                var selectedValue = parseInt($selector.val()[0]);
+                $.ajax({
+                    url: "/Show/SyncNextSubtitles",
+                    type: "GET",
+                    data: { src: '@Model.src', currentTime: currentTimeSpan, currentIndex:selectedValue },
+                    success: function (response) {
+                        //refresh subtitles
+                        var subtitles = $("#subtitles").attr("src");
+                        $("#subtitles").attr("src", subtitles);
+                        //resume player
+                        player.play();
+                        dimissSubtitleSelector();
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error Syncing subtitles: ", error);
+                    }
+                });
+                e.preventDefault();
+            }
+        });
+    });
+    function dimissSubtitleSelector() {
+        currentTimeSpan = undefined;
+        $("#SubtitlesForm").remove();
+    }
+</script>

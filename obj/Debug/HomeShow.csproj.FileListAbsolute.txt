@@ -51,6 +51,7 @@ H:\Developments\BitsDevelopments\Projects\Show\bin\Newtonsoft.Json.xml
 H:\Developments\BitsDevelopments\Projects\Show\bin\Antlr3.Runtime.pdb
 H:\Developments\BitsDevelopments\Projects\Show\obj\Debug\HomeShow.csproj.AssemblyReference.cache
 H:\Developments\BitsDevelopments\Projects\Show\obj\Debug\HomeShow.csproj.CoreCompileInputs.cache
-H:\Developments\BitsDevelopments\Projects\Show\obj\Debug\HomeShow.csproj.CopyComplete
 H:\Developments\BitsDevelopments\Projects\Show\obj\Debug\HomeShow.dll
 H:\Developments\BitsDevelopments\Projects\Show\obj\Debug\HomeShow.pdb
+H:\Developments\BitsDevelopments\Projects\Show\obj\Debug\HomeShow.csproj.Up2Date
+H:\Developments\BitsDevelopments\Projects\Show\bin\DateTimeX.dll

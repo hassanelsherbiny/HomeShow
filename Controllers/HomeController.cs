@@ -1,4 +1,5 @@
 ﻿using HomeShow.Models;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace HomeShow.Controllers
@@ -6,10 +7,12 @@ namespace HomeShow.Controllers
     public class HomeController : Controller
     {
 
-        public ActionResult Index()
+        public ActionResult Index(bool? Showhidden)
         {
-          
-            return View( Mapping.GetMappings());
+            var mapping = Mapping.GetMappings();
+            if (Showhidden != true)
+                mapping = mapping.Where(x => x.Visible).ToList();
+            return View(mapping);
         }
     }
 }

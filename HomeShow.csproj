@@ -44,6 +44,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DateTimeX">
+      <HintPath>.\DateTimeX.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -121,6 +124,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Mapping.cs" />
+    <Compile Include="Models\SubTitleSyncModel.cs" />
+    <Compile Include="Models\SubTitleItem.cs" />
     <Compile Include="Models\ShowModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -233,6 +238,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Show\List.cshtml" />
     <Content Include="Views\Show\_DetailsType2.cshtml" />
+    <Content Include="Views\Show\_SubtitlesSelector.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

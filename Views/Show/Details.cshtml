@@ -13,7 +13,6 @@
     <div class="row">
         <div class="col-md-12">
             <div id="VideoHolder">
-
             </div>
         </div>
         <div class="col-md-4 text-center">
@@ -123,6 +122,7 @@ else
     .mejs__overlay-play .mejs__controls {
         opacity: 1 !important;
     }
+
     .box.selected:after {
         content: ' ';
         background: white;
@@ -140,12 +140,14 @@ else
     var playlistLst = JSON.parse('@Html.Raw(Json.Encode( Model.Episodes))');
     var player;
     var keyMap = [];
+    var currentTimeSpan;
     function PlayShow(i) {
-            $("#csSeek").hide();
-            var videoElment = '<video id="myvideo" autoplay="autoplay" fullscreen controls="controls"></video>';
-            $("#VideoHolder").html(videoElment);
-            //$("#myvideo").attr("src", path);
-            player = new MediaElementPlayer('myvideo', {
+        $("#csSeek").hide();
+        //var subtitleFile = playlistLst[i].src.replace(/\.[^/.]+$/, ".vtt");
+        var videoElment = `<video id="myvideo" autoplay="autoplay" fullscreen controls="controls"></video>`;
+        $("#VideoHolder").html(videoElment);
+        //$("#myvideo").attr("src", path);
+        player = new MediaElementPlayer('myvideo', {
                 playlist: playlistLst,
                 loop: false, startVolume: 1,
                 features: ['playlistfeature', 'prevtrack', 'playpause', 'nexttrack', 'current', 'progress', 'duration', 'playlist', 'volume', 'fullscreen'],
@@ -155,7 +157,7 @@ else
                         requestFullScreen(elem);
                         p.enterFullScreen();
                     }
-                     catch(e) {  
+                     catch(e) {
                      }
                 },
                 defaultSeekBackwardInterval: function () {
@@ -170,42 +172,49 @@ else
                     return 10;
                 }
             });
-            document.getElementById("myvideo").addEventListener('playing', function (e) {
-                $("#CurrentFileTitle").html(player.playlist[player.currentPlaylistItem].title);
-                $(".mejs__time-slider").focus();
-                $('.mejs__controls').hide();
-                setCookie('Show_@Model.Name', player.currentPlaylistItem);
-                $(".active").removeClass("active");
-                $("#Ep_" + player.currentPlaylistItem).addClass('active');
-                $(".mejs__container").contextmenu(function (e) { $(".mejs__button.mejs__fullscreen-button.mejs__unfullscreen").click(); return false; });
-            });
-            $(".mejs__controls").prepend('<div class="mejs_title" id="CurrentFileTitle"></div>');
-            player.playOnPlayList(i);
-            player.play();
-            $(".mejs__controls").addClass('mejs__offscreen');
+        document.getElementById("myvideo").addEventListener('playing', function (e) {
+            var currentVideo = player.playlist[player.currentPlaylistItem];
+            $("#CurrentFileTitle").html(currentVideo.title);
+            $(".mejs__time-slider").focus();
+            $('.mejs__controls').hide();
+            setCookie('Show_@Model.Name', player.currentPlaylistItem);
+            $(".active").removeClass("active");
+            $("#Ep_" + player.currentPlaylistItem).addClass('active');
+            $(".mejs__container").contextmenu(function (e) { $(".mejs__button.mejs__fullscreen-button.mejs__unfullscreen").click(); return false; });
+            if (currentVideo.HasSubtitle) {
+                var subtitleSrc = `/Show/Subtitles?src=${playlistLst[i].src}`;
+                var track = `<track id="subtitles" label="English" kind="subtitles" srclang="en" src="${subtitleSrc}" default>`;
+                if($("#myvideo video track").length==0)
+                  $("#myvideo video").append(track);
+            }
+        });
+        $(".mejs__controls").prepend('<div class="mejs_title" id="CurrentFileTitle"></div>');
+        player.playOnPlayList(i);
+        player.play();
+        $(".mejs__controls").addClass('mejs__offscreen');
 
-            var el = document.getElementById('VideoHolder');
-            $(el).bind('webkitfullscreenchange mozfullscreenchange fullscreenchange', function (e) {
-                var fullScreen = document.fullScreen || document.mozFullScreen || document.webkitIsFullScreen;
-                if (!fullScreen) {
-                    player.pause();
-                }
-            });
-
-            navigator.mediaSession.metadata = new MediaMetadata({
-                artwork: [
-                    { src: '@(Model.ImagePath)', type: 'image/png' },
-                ]
-            });
-            navigator.mediaSession.setActionHandler('previoustrack', function () {
-                $(".mejs__prev-button").click();
-            });
-            navigator.mediaSession.setActionHandler('nexttrack', function () {
-                $(".mejs__next-button").click();
-            });
-        }
+        var el = document.getElementById('VideoHolder');
+        $(el).bind('webkitfullscreenchange mozfullscreenchange fullscreenchange', function (e) {
+            var fullScreen = document.fullScreen || document.mozFullScreen || document.webkitIsFullScreen;
+            if (!fullScreen) {
+                player.pause();
+            }
+        });
+        //browser media center
+        navigator.mediaSession.metadata = new MediaMetadata({
+            artwork: [
+                { src: '@(Model.ImagePath)', type: 'image/png' },
+            ]
+        });
+        navigator.mediaSession.setActionHandler('previoustrack', function () {
+            GetPrevious();
+        });
+        navigator.mediaSession.setActionHandler('nexttrack', function () {
+            GetNext();
+        });
+    }
     $(document).ready(function () {
-        ArrowSelect('.box');
+        //ArrowSelect('.box');
         var Ep = getCookie('Show_@Model.Name');
         $("#Ep_" + Ep).addClass('active');
         if ($("#Ep_" + Ep).length > 0) {
@@ -223,6 +232,14 @@ else
                 }
             });
     });
+    function GetNext() {
+        $("#subtitles").remove();
+        $(".mejs__next-button").click();
+    }
+    function GetPrevious() {
+        $("#subtitles").remove();
+        $(".mejs__prev-button").click();
+    }
     function requestFullScreen(element) {
         // Supports most browsers and their versions.
         var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
@@ -247,10 +264,10 @@ else
                 player.media.setCurrentTime(player.media.currentTime + 10);
                 break;
             case "Previous":
-                $(".mejs__prev-button").click();
+                GetPrevious();
                 break;
             case "Next":
-                $(".mejs__next-button").click();
+                GetNext();
                 break;
             case "SkipForward":
                 player.media.setCurrentTime(player.media.currentTime + (2.5 * 60));
@@ -263,6 +280,29 @@ else
                 break;
             case "Zero":
                 player.media.setCurrentTime(0);
+                break;
+            case "SyncSubtitles":
+                if (currentTimeSpan) {
+                    dimissSubtitleSelector();
+                    currentTimeSpan = undefined;
+                }
+                else {
+                    player.pause();
+                    var currentPosition = player.media.currentTime;
+                    currentTimeSpan = new Date(currentPosition * 1000).toISOString().substr(11, 8);
+                    $.ajax({
+                        url: "/Show/GetClosestSubTitles",
+                        type: "GET",
+                        data: { src: playlistLst[player.currentPlaylistItem].src, time: currentTimeSpan },
+                        success: function (response) {
+                            $("#VideoHolder .mejs__container").append(response);
+                            $("#SubtitlesSelector").focus();
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Error fetching subtitles: ", error);
+                        }
+                    });
+                }
                 break;
             default:
         }

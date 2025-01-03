@@ -4,35 +4,39 @@
     "Path": "/Series/",
     "Name": "مسلسلات",
     "ImagePath": "/content/img/Series.jpg",
-    "MapTypeId": "0"
+    "MapTypeId": "0",
+    "Visible":true
   },
   {
     "Id": "Movies",
     "Path": "/ArMovies/",
     "Name": "افلام عربي",
     "ImagePath": "/content/img/Movies.jpg",
-    "MapTypeId": "1"
+    "MapTypeId": "1",
+    "Visible":true
   },
   {
     "Id": "Ramadan",
     "Path": "/Ramadan/",
     "Name": "رمضان",
     "ImagePath": "/content/img/Ramadan.jpg",
-    "MapTypeId": "0"
-  },
-  {
-    "Id": "Mix",
-    "Path": "/Mix/",
-    "Name": "منوعات",
-    "ImagePath": "/content/img/Mix.jpg",
-    "MapTypeId": "0"
-  },
-  {
+    "MapTypeId": "0",
+    "Visible":true
+  }, {
+    "Id": "Anime",
+    "Path": "/Anime/",
+    "Name": "Anime",
+    "ImagePath": "/content/img/Anime.jpg",
+    "MapTypeId": "1",
+    "Visible":true
+
+  },{
     "Id": "EnMovies",
     "Path": "/Movies/",
     "Name": "Movies",
     "ImagePath": "/content/img/MoviesEn.jpg",
-    "MapTypeId": "1"
+    "MapTypeId": "1",
+    "Visible":false
 
   },
   {
@@ -40,7 +44,8 @@
     "Path": "/EnSeries/",
     "Name": "Series",
     "ImagePath": "/content/img/SeriesEn.jpg",
-    "MapTypeId": "0"
+    "MapTypeId": "0",
+    "Visible":false
 
   }
 ]

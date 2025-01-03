@@ -38,5 +38,9 @@
   {
     "KeyCode": 96,
     "Action": "Zero"
+  },
+  {
+    "KeyCode": 83,
+    "Action": "SyncSubtitles"
   }
 ]

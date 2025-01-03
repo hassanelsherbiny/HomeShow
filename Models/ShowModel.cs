@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace HomeShow.Models
 {
@@ -19,6 +16,7 @@ namespace HomeShow.Models
     public class Ep
     {
         public string src { get; set; }
+        public bool HasSubtitle { get; set; }
         public string title { get; set; }
         public string Group { get; set; }
     }
